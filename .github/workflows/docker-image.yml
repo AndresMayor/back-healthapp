@@ -20,16 +20,16 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: Configurar CLI de Azure
-      run: az configure --defaults acr=<nombre_del_acr>
+      run: az configure --defaults acr=acrAndresMayor
       
     - name: Construir y etiquetar la imagen de Docker
       run: |
-        docker build -t <nombre_de_la_imagen> .
-        docker tag <nombre_de_la_imagen> <nombre_del_acr>.azurecr.io/<nombre_de_la_imagen>:latest
+        docker build -t backend .
+        docker tag backend acrAndresMayor.azurecr.io/backend:latest
         
     - name: Iniciar sesión en ACR
-      run: az acr login --name <nombre_del_acr>
+      run: az acr login --name acrAndresMayor
 
     - name: Subir imagen al ACR
-      run: docker push <nombre_del_acr>.azurecr.io/<nombre_de_la_imagen>:latest
+      run: docker push acrAndresMayor.azurecr.io/acrAndresMayor:latest
 
