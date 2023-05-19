@@ -21,15 +21,19 @@ jobs:
         
     - name: Configurar CLI de Azure
       run: az configure --defaults acr=acrAndresMayor
+    
+    - name: Configurar entorno de Docker
+      uses: azure/docker-login@v1
+      with:
+        login-server: acrandresmayor.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
       
     - name: Construir y etiquetar la imagen de Docker
       run: |
         docker build -t backend .
         docker tag backend acrAndresMayor.azurecr.io/backend:latest
         
-    - name: Iniciar sesión en ACR
-      run: az acr login --name acrAndresMayor
-
     - name: Subir imagen al ACR
       run: docker push acrAndresMayor.azurecr.io/acrAndresMayor:latest
       
