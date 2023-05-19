@@ -39,7 +39,7 @@ jobs:
     - name: Construir y etiquetar la imagen de Docker
       run: |
         docker build -t backend .
-        docker tag backend acrandresmayor.azurecr.io/backend:0.0.1
+        docker tag backend acrandresmayor.azurecr.io/backend:${{ github.sha }}
         
     - name: Subir imagen al ACR
       run: docker push acrandresmayor.azurecr.io/backend:${{ github.sha }}
